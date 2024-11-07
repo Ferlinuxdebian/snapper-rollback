@@ -14,7 +14,10 @@ sudo dnf install libdnf5-plugin-actions btrfs-assistant
 # Instação 
 ```
 git clone https://github.com/Ferlinuxdebian/snapper-rollback.git
+```
 
+```
 cd snapper-rollback; chmod +x snapper-rollback; sudo mv snapper-rollback /usr/local/bin/
 ```
+
 # Video de desmostração do software

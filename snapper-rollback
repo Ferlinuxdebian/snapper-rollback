@@ -1,0 +1,33 @@
+#!/bin/bash
+if  [ -d /boot_backup ]; then
+	# Mostra os snapshots realizados pelo btrfs-assistant
+	btrfs-assistant --list | awk '$3 ~ /[0-9]+/ \
+	{printf "Snapshot Nº: %s | Data: %s %s %s\n",$3,$5,$6,$7}'
+	
+	# Permite que você escolha o snapshot
+	read -p "Escolha um número de Snapshot ou CONTROL + C para sair: " var
+	
+	# Variável obtém o maior valor do snapshot
+	max=$(btrfs-assistant --list | awk '$3 ~ /[0-9]+/ \
+    {printf "%s\n",$3}' | sort -nr | head -n1)
+	
+	# Alguma verificação de erro quanto a entrada do teclado
+	if grep -w $var <<< $(seq 1 $max) &>/dev/null; then
+		# Volta o boot a partir do backup existente dentro do snapshot
+		rm -rf /boot 2>/dev/null
+		cp -r /.snapshots/$var/snapshot/boot_backup/boot/* /boot
+	
+		# Aplica o snapshot que você escolheu
+		btrfs-assistant --restore $var
+	else
+		echo "Valor incorreto para o Snapshot!"
+		exit 1
+	fi
+else
+	# Se não tem nenhum backup do boot, ele faz o primeiro 
+	# Esse script deve ser executado antes de snaphosts serem 
+	# criados no sistema
+	echo "O backup do boot não foi realizado, fazendo o 1º backup!"
+	rsync -a --mkpath --delete /boot /boot_backup
+	echo "Comece a realizar snaphosts a partir de agora!"
+fi

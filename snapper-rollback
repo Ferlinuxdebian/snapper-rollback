@@ -9,13 +9,13 @@ if  [ -d /boot_backup ]; then
 	
 	# Variável obtém o maior valor do snapshot
 	max=$(btrfs-assistant --list | awk '$3 ~ /[0-9]+/ \
-    	{printf "%s\n",$3}' | sort -nr | head -n1)
+    {printf "%s\n",$3}' | sort -nr | head -n1)
 	
 	# Alguma verificação de erro quanto a entrada do teclado
 	if grep -w $var <<< $(seq 1 $max) &>/dev/null; then
 		# Volta o boot a partir do backup existente dentro do snapshot
-		rm -rf /boot 2>/dev/null
-		cp -r /.snapshots/$var/snapshot/boot_backup/boot/* /boot
+		rsync -avh --delete --checksum --progress \
+ 		/.snapshots/$var/snapshot/boot_backup/boot/* /boot
 	
 		# Aplica o snapshot que você escolheu
 		btrfs-assistant --restore $var

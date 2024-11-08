@@ -38,3 +38,4 @@ snapper-rollback
 ```
 
 # Video de desmostração do software
+[Assista no YouTube](https://youtu.be/mqDYDBGfOCo)

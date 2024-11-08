@@ -18,7 +18,7 @@ sudo dnf install libdnf5-plugin-actions btrfs-assistant
 Logue-se como root:
 ```
 sudo su -
-``
+```
 
 ```
 cat << EOF > /etc/dnf/libdnf5-plugins/actions.d/boot_backup.actions

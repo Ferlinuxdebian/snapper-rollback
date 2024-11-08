@@ -13,7 +13,14 @@ snapshot seja criado, a fim de iniciar o backup do diretório /boot e /boot/efi.
 ```
 sudo dnf install libdnf5-plugin-actions btrfs-assistant
 ```
+
 # Instação 
+```
+cat << EOF > /etc/dnf/libdnf5-plugins/actions.d/boot_backup.actions
+# Efetua um backup do ditório boot a cada update do kernel
+post_transaction:kernel-core:in::rsync -a --mkpath --delete /boot /boot_backup
+EOF
+```
 ```
 git clone https://github.com/Ferlinuxdebian/snapper-rollback.git
 ```

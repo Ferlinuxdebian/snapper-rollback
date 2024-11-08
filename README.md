@@ -15,6 +15,11 @@ sudo dnf install libdnf5-plugin-actions btrfs-assistant
 ```
 
 # Instação 
+Logue-se como root:
+```
+sudo su -
+``
+
 ```
 cat << EOF > /etc/dnf/libdnf5-plugins/actions.d/boot_backup.actions
 # Efetua um backup do ditório boot a cada update do kernel

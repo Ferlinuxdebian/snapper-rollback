@@ -33,5 +33,8 @@ git clone https://github.com/Ferlinuxdebian/snapper-rollback.git
 ```
 cd snapper-rollback; chmod +x snapper-rollback; sudo mv snapper-rollback /usr/local/bin/
 ```
+```
+snapper-rollback
+```
 
 # Video de desmostração do software
